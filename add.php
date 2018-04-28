@@ -13,8 +13,7 @@
 
     <!-- Bootstrap core CSS -->
     <link href="assets/css/bootstrap.min.css" rel="stylesheet">
-
-   
+    <link href="assets/css/signup.css" rel="stylesheet">
     <link href="assets/css/offcanvas.css" rel="stylesheet">
   </head>
 
@@ -65,7 +64,7 @@
               <?php
                 session_start();
                 if (isset($_SESSION['username'])) {
-                  echo "<a href='edit.php'><b>".$_SESSION['username']."</b></a>";
+                  echo "<a href='usercenter.php'><b>".$_SESSION['username']."</b></a>";
                 }
               ?>
             </li>
@@ -76,70 +75,38 @@
 
     <div class="container">
 
-      <div class="row row-offcanvas row-offcanvas-right">
+     <form class="form-signin" method="POST" action="add.php">
+        <h2 class="form-signin-heading">Please Add New Dish</h2>
 
-        <div class="col-xs-12 col-sm-9">
-          <p class="pull-right visible-xs">
-            <button type="button" class="btn btn-primary btn-xs" data-toggle="offcanvas">Toggle nav</button>
-          </p>
-          <div class="jumbotron">
-            <h1>Pizza!</h1>
-            <p>ONLINE ORDERING NOW AVAILABLE.</p>
-          </div>
+        <p>Name: </p>
+        <label for="inputEmail" class="sr-only">Email address</label>
+        <input type="text" name="name" id="inputname" class="form-control" placeholder="Name" required autofocus>
+        <p></p>
 
-          <div class="row">
-            <!-- 320*150 -->
-            <!-- add -->
-            <?php
-              $con = mysqli_connect("localhost","root","root" , "OnlinePizzaOrder");
-              $sql="SELECT * FROM Products";
-              $result = mysqli_query($con,$sql);
-              while($row = mysqli_fetch_array($result)){
-                echo "<div class='col-sm-4 col-lg-4 col-md-4'>";
-                echo "<div class='thumbnail' style='height: 340px;display: table;width: 100%;'>";
-                $name = $row['Name'];
-                $pictures = $row['Image'];
-                $price = $row['Price'];
-                $stock = $row['Stock'];
-                $description = $row['Description'];
-                echo "<center><p><img style='max-height:270px;max-width:200px;' src='images/$pictures'></p></center>";
-                echo "<div class='caption'>";
-                echo "<center><p class='name'><strong>" . $name . "</strong></p></center>";
-                echo "<center><p class='description'>" . $description . "</p></center>";
-                echo "<center><p class='price'>$ " . $price . "</p></center>";
-                echo "<center><p class='stock'>Stock: " . $stock . "</p></center>";
-                echo "<center><p><a class='btn btn-default' href='login.php' role='button'>Add to cart</a></p></center>";
-                echo "</div></div></div>";
-              }
-            ?>
+        <p>Category: </p>
+        <label for="inputUsername" class="sr-only">Category</label>
+        <input type="text" name="category" id="inputCategory" class="form-control" placeholder="Category" required>
+        <p></p>
 
-          </div>
+        <p>Description: </p>
+        <label for="inputPrice" class="sr-only">Description</label>
+        <input type="text" name="description" id="inputDescription" class="form-control" placeholder="Description" required>
+        <p></p>
 
-        </div><!--/.col-xs-12.col-sm-9-->
+        <p>Stock: </p>
+        <label for="inputStock" class="sr-only">Stock</label>
+        <input type="text" name="stock" id="inputStock" class="form-control" placeholder="Stock" required>
+        <p></p>
 
-        <div class="col-xs-6 col-sm-3 sidebar-offcanvas" id="sidebar">
-          <div class="list-group">
-            <p class="lead">Category</p>
-            <a href="#" class="list-group-item active">PIZZAS</a>
-            <a href="#" class="list-group-item">COMBO</a>
-            <a href="#" class="list-group-item">SIDES</a>
-            <a href="#" class="list-group-item">DRINKS</a>
-          </div>
-          <div class="list-group">
-            <p class="lead">Price</p>
-            <a href="#" class="list-group-item active">< $5</a>
-            <a href="#" class="list-group-item">$5-10</a>
-            <a href="#" class="list-group-item">$10-15</a>
-            <a href="#" class="list-group-item">> $15</a>
-          </div>
-        </div><!--/.sidebar-offcanvas-->
+        <p>Image: </p>
+        <label for="inputImage" class="sr-only">Image</label>
+        <input type="text" id="inputImage" name="image" class="form-control" placeholder="Image" required>
+        <p></p>
+
+        <button class="btn btn-lg btn-primary btn-block" type="submit" name="submit">Add</button>
+      </form>
       </div><!--/row-->
 
-      <hr>
-
-      <footer>
-        <p>&copy; 2018 Ruolan Zeng Web Final Projects</p>
-      </footer>
 
     </div><!--/.container-->
 

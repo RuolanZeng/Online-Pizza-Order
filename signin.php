@@ -40,10 +40,11 @@
 
               session_start();
               $_SESSION['email'] = $email;
+              $_SESSION['username'] = $row[Username];
 
-              // if($row[Authority] === '1'){
-              //   $_SESSION['admin'] = 1;
-              // }
+              if($row[Authority] === '1'){
+                $_SESSION['admin'] = 1;
+              }
 
               header("Location: index.php");
               exit();
@@ -51,9 +52,6 @@
               echo "<p id='Hint' class = 'alert alert-danger'> Email or Password is Invalid</p>";
             }
           }
-
-          
-          
         ?>
 
         <label for="inputEmail" class="sr-only">Email address</label>
