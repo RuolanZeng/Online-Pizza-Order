@@ -118,7 +118,7 @@
 				</div>
 
 				<div class="col-md-12"  style="padding-bottom:2em;">
-					<a class="btn btn-info" id="add" href="add.php"><i class="fa fa-plus"></i>Add new one</a>
+					<a class="btn btn-info" id="add" href="addnewitem.php"><i class="fa fa-plus"></i>Add new one</a>
 				</div>
 			</div>
 		</div>
