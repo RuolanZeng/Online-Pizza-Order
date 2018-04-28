@@ -45,7 +45,7 @@
               //   $_SESSION['admin'] = 1;
               // }
 
-              header("Location: test.php");
+              header("Location: index.php");
               exit();
             }else{
               echo "<p id='Hint' class = 'alert alert-danger'> Email or Password is Invalid</p>";
