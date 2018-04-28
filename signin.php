@@ -36,7 +36,7 @@
           if (isset($_POST['submit'])) {
             if(password_verify($pw, $row['Password'])){
 
-              setcookie("usercookie", $email, time()+60*60*7);
+              //setcookie("usercookie", $email, time()+60*60*7);
 
               session_start();
               $_SESSION['email'] = $email;
