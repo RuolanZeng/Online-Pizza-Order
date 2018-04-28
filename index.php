@@ -38,6 +38,7 @@
           </ul>
           <ul id="upright" class="nav navbar-nav navbar-right">
             <li id="upright1" class="dropdown">
+              
               <a href="signup.php"><b>Register</b></a>
             </li>
           </ul>
