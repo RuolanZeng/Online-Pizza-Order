@@ -97,6 +97,7 @@
               while($row = mysqli_fetch_array($result)){
                 echo "<div class='col-sm-4 col-lg-4 col-md-4'>";
                 echo "<div class='thumbnail' style='height: 340px;display: table;width: 100%;'>";
+                $id = row['P_Id'];
                 $name = $row['Name'];
                 $pictures = $row['Image'];
                 $price = $row['Price'];
@@ -108,7 +109,7 @@
                 echo "<center><p class='description'>" . $description . "</p></center>";
                 echo "<center><p class='price'>$ " . $price . "</p></center>";
                 echo "<center><p class='stock'>Stock: " . $stock . "</p></center>";
-                echo "<center><p><a class='btn btn-default' href='login.php' role='button'>Add to cart</a></p></center>";
+                echo "<center><p><a class='btn btn-default' href='add.php?ids={&id}' role='button'>Add to cart</a></p></center>";
                 echo "</div></div></div>";
               }
             ?>
@@ -132,6 +133,7 @@
             <a href="#" class="list-group-item">$10-15</a>
             <a href="#" class="list-group-item">> $15</a>
           </div>
+          <div><a href="cart.php">Cart</a></div>
         </div><!--/.sidebar-offcanvas-->
       </div><!--/row-->
 
