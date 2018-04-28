@@ -36,7 +36,7 @@
           if (isset($_POST['submit'])) {
             if(password_verify($pw, $row['Password'])){
 
-              setcookie("usercookie", $email, time()+60*60*7);
+              //setcookie("usercookie", $email, time()+60*60*7);
 
               session_start();
               $_SESSION['email'] = $email;
@@ -45,7 +45,7 @@
               //   $_SESSION['admin'] = 1;
               // }
 
-              header("Location: test.php");
+              header("Location: index.php");
               exit();
             }else{
               echo "<p id='Hint' class = 'alert alert-danger'> Email or Password is Invalid</p>";
