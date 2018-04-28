@@ -9,7 +9,7 @@
     <meta name="author" content="ruolan zeng">
     <link rel="icon" href="../../favicon.ico">
 
-    <title>Pizza to Go</title>
+    <title>Add New Item</title>
 
     <!-- Bootstrap core CSS -->
     <link href="assets/css/bootstrap.min.css" rel="stylesheet">
@@ -27,11 +27,11 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">Pizza to Go</a>
+          <a class="navbar-brand" href="index.php">Pizza to Go</a>
         </div>
         <div id="navbar" class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="#">Home</a></li>
+            <li class="active"><a href="index.php">Home</a></li>
             <li><a href="#about">About</a></li>
             <li><a href="#contact">Contact</a></li>
           </ul>
@@ -79,17 +79,22 @@
         <h2 class="form-signin-heading">Please Add New Dish</h2>
 
         <p>Name: </p>
-        <label for="inputEmail" class="sr-only">Email address</label>
-        <input type="text" name="name" id="inputname" class="form-control" placeholder="Name" required autofocus>
+        <label for="inputName" class="sr-only">Name</label>
+        <input type="text" name="dishname" id="inputname" class="form-control" placeholder="Name" required autofocus>
         <p></p>
 
         <p>Category: </p>
-        <label for="inputUsername" class="sr-only">Category</label>
+        <label for="inputCategory" class="sr-only">Category</label>
         <input type="text" name="category" id="inputCategory" class="form-control" placeholder="Category" required>
         <p></p>
 
+        <p>Price: </p>
+        <label for="inputPrice" class="sr-only">Price</label>
+        <input type="text" name="category" id="inputCategory" class="form-control" placeholder="Price" required>
+        <p></p>
+
         <p>Description: </p>
-        <label for="inputPrice" class="sr-only">Description</label>
+        <label for="inputDescription" class="sr-only">Description</label>
         <input type="text" name="description" id="inputDescription" class="form-control" placeholder="Description" required>
         <p></p>
 
@@ -104,6 +109,33 @@
         <p></p>
 
         <button class="btn btn-lg btn-primary btn-block" type="submit" name="submit">Add</button>
+
+        <?php
+            $dishname = $_POST['dishname'];
+            $category = $_POST['category'];
+            $price = $_POST['price'];
+            $description = $_POST['description'];
+            $stock = $_POST['stock'];
+            $image = $_POST['image'];
+
+            if (isset($_POST['submit'])) {
+                if(!is_null($dishname)&&!is_null($category)&&!is_null($description)&&!is_null($stock)){
+                    $con = mysqli_connect("localhost","root","root" , "OnlinePizzaOrder");
+                    $sql="INSERT INTO `Products` (`Name`, `Category`, `Price`, `Description`, `Stock`, `Image`) VALUES ('$dishname', '$category','$price', '$description', '$stock', '$image');";
+
+                    mysqli_query($con,$sql);
+
+                    // setcookie("usercookie", $email, time()+6000);
+                    // echo "right";
+                    // echo "$_COOKIE[$usercookie]";
+
+                    header("Location: index.php");
+                    echo "right";
+                    exit();
+                }
+            }
+        ?>
+
       </form>
       </div><!--/row-->
 

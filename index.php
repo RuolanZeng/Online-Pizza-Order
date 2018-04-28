@@ -28,11 +28,11 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">Pizza to Go</a>
+          <a class="navbar-brand" href="index.php">Pizza to Go</a>
         </div>
         <div id="navbar" class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="#">Home</a></li>
+            <li class="active"><a href="index.php">Home</a></li>
             <li><a href="#about">About</a></li>
             <li><a href="#contact">Contact</a></li>
           </ul>
@@ -65,7 +65,7 @@
               <?php
                 session_start();
                 if (isset($_SESSION['username'])) {
-                  echo "<a href='edit.php'><b>".$_SESSION['username']."</b></a>";
+                  echo "<a href='editmenu.php'><b>".$_SESSION['username']."</b></a>";
                 }
               ?>
             </li>
@@ -97,7 +97,7 @@
               while($row = mysqli_fetch_array($result)){
                 echo "<div class='col-sm-4 col-lg-4 col-md-4'>";
                 echo "<div class='thumbnail' style='height: 340px;display: table;width: 100%;'>";
-                $id = row['P_Id'];
+                $id = $row['P_Id'];
                 $name = $row['Name'];
                 $pictures = $row['Image'];
                 $price = $row['Price'];
@@ -109,7 +109,7 @@
                 echo "<center><p class='description'>" . $description . "</p></center>";
                 echo "<center><p class='price'>$ " . $price . "</p></center>";
                 echo "<center><p class='stock'>Stock: " . $stock . "</p></center>";
-                echo "<center><p><a class='btn btn-default' href='add.php?ids={&id}' role='button'>Add to cart</a></p></center>";
+                echo "<center><p><a class='btn btn-default' href='add.php?ids={$id}' role='button'>Add to cart</a></p></center>";
                 echo "</div></div></div>";
               }
             ?>
