@@ -14,6 +14,9 @@
 
                     mysqli_query($con,$sql);
 
+                    session_start();
+                    $_SESSION['email'] = $email;
+                    $_SESSION['username'] = $username;
                     // setcookie("usercookie", $email, time()+6000);
                     // echo "right";
                     // echo "$_COOKIE[$usercookie]";

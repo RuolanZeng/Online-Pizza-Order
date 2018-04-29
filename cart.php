@@ -112,9 +112,9 @@
 					                echo "<td>".$row[Category]."</td>";
 					                echo "<td>".$row[Price]."</td>";
 					                echo "<td><center>";
-					                echo "<button type='button' class='btn btn-info btn-sm'>-</button>";
-					                echo " <input id='count' style='width:50px;' value='".$row[Count]."'> ";
-					                echo "<button type='button' class='btn btn-info btn-sm'>+</button>";
+					                //echo "<button type='button' class='btn btn-info btn-sm'>-</button>";
+					                echo " <input name='count' style='width:50px;' value='".$row[Count]."'> ";
+					                //echo "<button type='button' class='btn btn-info btn-sm'>+</button>";
 					                echo "</center></td>";
 					                echo "<td><center><a class='btn btn-info' id='edit' href='removecartitem.php?id=".$row[P_Id]."'>Remove</a></center></td>";
 					                echo "</tr>";

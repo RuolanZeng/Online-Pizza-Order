@@ -105,7 +105,7 @@
 					                echo "<td>".$row[Category]."</td>";
 					                echo "<td>".$row[Price]."</td>";
 					                echo "<td>".$row[Description]."</td>";
-					                echo "<td>".$row[Image]."</td>";
+					                echo "<td><center><img style='max-height:270px;max-width:200px;' src='uploads/".$row[Image]."'></center></td>";
 					                echo "<td>".$row[Stock]."</td>";
 					                echo "<td><a class='btn btn-info' id='edit' href='edititem.php?id=".$row[P_Id]."'>Edit</a></td>";
 					                echo "<td><a class='btn btn-info' id='edit' href='deleteitem.php?id=".$row[P_Id]."'>Delete</a></td>";

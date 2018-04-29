@@ -13,13 +13,11 @@
 
     <!-- Bootstrap core CSS -->
     <link href="assets/css/bootstrap.min.css" rel="stylesheet">
-
-   
     <link href="assets/css/offcanvas.css" rel="stylesheet">
   </head>
 
   <body>
-    <nav class="navbar navbar-fixed-top navbar-inverse">
+    <nav class="navbar navbar-fixed-top navbar-inverse" style="background-color:#eb5814;">
       <div class="container">
         <div class="navbar-header">
           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -28,11 +26,11 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">Pizza to Go</a>
+          <a class="navbar-brand" href="index.php" style="color: black;">Pizza to Go</a>
         </div>
         <div id="navbar" class="collapse navbar-collapse">
           <!-- <ul class="nav navbar-nav">
-            <li><a href="#">Home</a></li>
+            <li class="active"><a href="index.php">Home</a></li>
             <li><a href="#about">About</a></li>
             <li><a href="#contact">Contact</a></li>
           </ul> -->
@@ -78,14 +76,16 @@
 
       <div class="row row-offcanvas row-offcanvas-right">
 
-        <div class="col-xs-12 col-sm-9">
-          <p class="pull-right visible-xs">
+        <div class="col-xs-12 col-sm-8">
+          <!-- <p class="pull-right visible-xs">
             <button type="button" class="btn btn-primary btn-xs" data-toggle="offcanvas">Toggle nav</button>
-          </p>
-          <div class="jumbotron">
+          </p> -->
+          <div class="row">
+          <div class="jumbotron" style="background: #eb5814;">
             <h1>Pizza!</h1>
             <p>ONLINE ORDERING NOW AVAILABLE.</p>
           </div>
+        </div>
 
           <div class="row">
             <!-- 320*150 -->
@@ -94,23 +94,32 @@
               $con = mysqli_connect("localhost","root","root" , "OnlinePizzaOrder");
               $sql="SELECT * FROM Products";
               $result = mysqli_query($con,$sql);
+              $item=0;
               while($row = mysqli_fetch_array($result)){
-                echo "<div class='col-sm-4 col-lg-4 col-md-4'>";
-                echo "<div class='thumbnail' style='height: 340px;display: table;width: 100%;'>";
+                if($item == "0"){
+                  echo "<div class='row'>";
+                }
+                echo "<div style='float:left;' class='col-sm-4 col-lg-4 col-md-4'>";
+                echo "<div class='thumbnail' style='height: 340px;display: table;'>";
                 $id = $row['P_Id'];
                 $name = $row['Name'];
                 $pictures = $row['Image'];
                 $price = $row['Price'];
                 $stock = $row['Stock'];
                 $description = $row['Description'];
-                echo "<center><p><img style='max-height:270px;max-width:200px;' src='images/$pictures'></p></center>";
+                echo "<center><p><img style='max-height:270px;max-width:200px;' src='uploads/$pictures'></p></center>";
                 echo "<div class='caption'>";
-                echo "<center><p class='name'><strong>" . $name . "</strong></p></center>";
-                echo "<center><p class='description'>" . $description . "</p></center>";
+                echo "<center><p class='name' style='overflow:hidden;max-width:200px;'><strong>" . $name . "</strong></p></center>";
+                echo "<center><p class='description' style='overflow:hidden;max-height:270px;max-width:200px;'>" . $description . "</p></center>";
                 echo "<center><p class='price'>$ " . $price . "</p></center>";
                 echo "<center><p class='stock'>Stock: " . $stock . "</p></center>";
                 echo "<center><p><a class='btn btn-default' href='addtocart.php?id={$id}' role='button'>Add to cart</a></p></center>";
                 echo "</div></div></div>";
+                $item += 1;
+                if($item == "3"){
+                  echo "</div>";
+                  $item = 0;
+                }
               }
             ?>
 
@@ -118,7 +127,9 @@
 
         </div><!--/.col-xs-12.col-sm-9-->
 
-        <div class="col-xs-6 col-sm-3 sidebar-offcanvas" id="sidebar">
+
+        </div><!--/.sidebar-offcanvas-->
+                <div class="col-xs-6 col-sm-4 sidebar-offcanvas" id="sidebar">
           <div class="list-group">
             <p class="lead">Category</p>
             <a href="#" class="list-group-item active">PIZZAS</a>
@@ -128,21 +139,22 @@
           </div>
           <div class="list-group">
             <p class="lead">Price</p>
-            <a href="#" class="list-group-item">< $5</a>
+            <a href="#" class="list-group-item active">< $5</a>
             <a href="#" class="list-group-item">$5-10</a>
             <a href="#" class="list-group-item">$10-15</a>
             <a href="#" class="list-group-item">> $15</a>
           </div>
-        </div><!--/.sidebar-offcanvas-->
       </div><!--/row-->
 
       <hr>
 
-      <footer>
-        <p>&copy; 2018 Ruolan Zeng Web Final Projects</p>
-      </footer>
+      
 
     </div><!--/.container-->
+
+    <footer>
+        <p>&copy; 2018 Ruolan Zeng Web Final Projects</p>
+      </footer>
 
 
     <!-- Bootstrap core JavaScript
