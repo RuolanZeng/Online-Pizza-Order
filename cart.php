@@ -90,7 +90,8 @@
 						<table class="table table-bordered table-striped" id="mytable">
 						    <thead>
 						      <tr>
-								<td>P_Id</td>
+								<td>Name</td>
+								<td>Image</td>
 								<td>Category</td>
 								<td>Price</td>
 								<td>Count</td>
@@ -107,9 +108,14 @@
 					              while($row = mysqli_fetch_array($result)){
 					                echo "<tr>";
 					                echo "<td>".$row[Name]."</td>";
+					                echo "<td><center><img style='max-height:270px;max-width:200px;' src='uploads/".$row[Image]."'></center></td>";
 					                echo "<td>".$row[Category]."</td>";
 					                echo "<td>".$row[Price]."</td>";
-					                echo "<td>".$row[Count]."</td>";
+					                echo "<td><center>";
+					                echo "<button type='button' class='btn btn-info btn-sm'>-</button>";
+					                echo " <input id='count' style='width:50px;' value='".$row[Count]."'> ";
+					                echo "<button type='button' class='btn btn-info btn-sm'>+</button>";
+					                echo "</center></td>";
 					                echo "<td><center><a class='btn btn-info' id='edit' href='removecartitem.php?id=".$row[P_Id]."'>Remove</a></center></td>";
 					                echo "</tr>";
 					                $finalprice += $row[Price]*$row[Count];
@@ -121,7 +127,7 @@
 				</div>
 
 				<?php 
-					echo "<h4 style='float:right'>Final Price:".$finalprice."</h4>";
+					echo "<h4 style='float:right'>Final Price: $".$finalprice."</h4>";
 					session_start();
 					$_SESSION['finalprice'] = $finalprice;
 				?>

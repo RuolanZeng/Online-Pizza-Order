@@ -102,7 +102,7 @@
 
         <p>Description: </p>
         <label for="inputPrice" class="sr-only">Description</label>
-        <input type="text" name="description" id="inputDescription" class="form-control" <?php echo "value='".$row[Description]."'"; ?> required>
+        <textarea type="text" name="description" id="inputDescription" class="form-control" required> <?php echo $row[Description];?> </textarea>
         <p></p>
 
         <p>Stock: </p>
