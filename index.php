@@ -13,13 +13,11 @@
 
     <!-- Bootstrap core CSS -->
     <link href="assets/css/bootstrap.min.css" rel="stylesheet">
-
-   
     <link href="assets/css/offcanvas.css" rel="stylesheet">
   </head>
 
   <body>
-    <nav class="navbar navbar-fixed-top navbar-inverse" style="background-color:#ff471a;">
+    <nav class="navbar navbar-fixed-top navbar-inverse" style="background-color:#eb5814;">
       <div class="container">
         <div class="navbar-header">
           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -28,14 +26,14 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="index.php">Pizza to Go</a>
+          <a class="navbar-brand" href="index.php" style="color: black;">Pizza to Go</a>
         </div>
         <div id="navbar" class="collapse navbar-collapse">
-          <ul class="nav navbar-nav">
+          <!-- <ul class="nav navbar-nav">
             <li class="active"><a href="index.php">Home</a></li>
             <li><a href="#about">About</a></li>
             <li><a href="#contact">Contact</a></li>
-          </ul>
+          </ul> -->
           <ul id="upright" class="nav navbar-nav navbar-right">
             <li id="upright1" class="dropdown">
               <?php
@@ -82,7 +80,7 @@
           <p class="pull-right visible-xs">
             <button type="button" class="btn btn-primary btn-xs" data-toggle="offcanvas">Toggle nav</button>
           </p>
-          <div class="jumbotron">
+          <div class="jumbotron" style="background: #eb5814;">
             <h1>Pizza!</h1>
             <p>ONLINE ORDERING NOW AVAILABLE.</p>
           </div>
@@ -95,7 +93,7 @@
               $sql="SELECT * FROM Products";
               $result = mysqli_query($con,$sql);
               while($row = mysqli_fetch_array($result)){
-                echo "<div class='col-sm-4 col-lg-4 col-md-4'>";
+                echo "<div style='float:left;' class='col-sm-4 col-lg-4 col-md-4'>";
                 echo "<div class='thumbnail' style='height: 340px;display: table;width: 100%;'>";
                 $id = $row['P_Id'];
                 $name = $row['Name'];
@@ -103,7 +101,7 @@
                 $price = $row['Price'];
                 $stock = $row['Stock'];
                 $description = $row['Description'];
-                echo "<center><p><img style='max-height:270px;max-width:200px;' src='images/$pictures'></p></center>";
+                echo "<center><p><img style='max-height:270px;max-width:200px;' src='uploads/$pictures'></p></center>";
                 echo "<div class='caption'>";
                 echo "<center><p class='name'><strong>" . $name . "</strong></p></center>";
                 echo "<center><p class='description'>" . $description . "</p></center>";

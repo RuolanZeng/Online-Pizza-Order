@@ -75,12 +75,12 @@
 
     <div class="container">
 
-     <form class="form-signin" method="POST" action="addnewitem.php">
+     <form class="form-signin" method="POST" action="addnewitem.php" enctype="multipart/form-data">
         <h2 class="form-signin-heading">Please Add New Dish</h2>
 
         <p>Name: </p>
         <label for="inputName" class="sr-only">Name</label>
-        <input type="text" name="dishname" id="inputname" class="form-control" placeholder="Name" required autofocus>
+        <input type="text" name="dishname" id="inputname" class="form-control" placeholder="Name" autofocus required>
         <p></p>
 
         <p>Category: </p>
@@ -105,7 +105,7 @@
 
         <p>Image: </p>
         <label for="inputImage" class="sr-only">Image</label>
-        <input type="text" id="inputImage" name="image" class="form-control" placeholder="Image" required>
+        <input type="file" id="inputImage" name="file" class="form-control" required>
         <p></p>
 
         <button class="btn btn-lg btn-primary btn-block" type="submit" name="submit">Add</button>
@@ -116,12 +116,30 @@
             $price = $_POST['price'];
             $description = $_POST['description'];
             $stock = $_POST['stock'];
-            $image = $_POST['image'];
 
             if (isset($_POST['submit'])) {
                 if(!is_null($dishname)&&!is_null($category)&&!is_null($description)&&!is_null($stock)){
+
+                    $image = $_FILES['file'];
+                    $imageName = $_FILES['file']['name'];
+                    $imageTmp = $_FILES['file']['tmp_name'];
+                    $imageSize = $_FILES['file']['size'];
+                    $imageError = $_FILES['file']['error'];
+                    $imageType = $_FILES['file']['type'];
+                    
+                    // echo $imageName;
+                    // echo $imageTmp;
+                    // echo $imageSize;
+                    // echo $imageError;
+                    // echo $imageType;
+
+                    if ($imageError === 0) {
+                      $fileDestination = 'uploads/'.$imageName;
+                      move_uploaded_file($imageTmp, $fileDestination);
+                    }
+
                     $con = mysqli_connect("localhost","root","root" , "OnlinePizzaOrder");
-                    $sql="INSERT INTO `Products` (`Name`, `Category`, `Price`, `Description`, `Stock`, `Image`) VALUES ('$dishname','$category','$price','$description','$stock','$image');";
+                    $sql="INSERT INTO `Products` (`Name`, `Category`, `Price`, `Description`, `Stock`, `Image`) VALUES ('$dishname','$category','$price','$description','$stock','$imageName');";
 
                     mysqli_query($con,$sql);
 
