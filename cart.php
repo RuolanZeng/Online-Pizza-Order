@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh">
+<html lang="en">
 <head>
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
@@ -91,9 +91,9 @@
 						    <thead>
 						      <tr>
 								<td>P_Id</td>
+								<td>Category</td>
+								<td>Price</td>
 								<td>Count</td>
-								<td></td>
-								<td></td>
 								<td></td>
 							</tr>
 						    </thead>
@@ -102,18 +102,17 @@
 					              $con = mysqli_connect("localhost","root","root" , "OnlinePizzaOrder");
 					              session_start();
 					              $email = $_SESSION['email'];
-					              $sql="SELECT * FROM Cart WHERE Email = '$email'";
+					              $sql="SELECT a.*,b.Count FROM Products a LEFT JOIN Cart b ON a.P_Id = b.P_Id WHERE b.Email = '$email'";
 					              $result = mysqli_query($con,$sql);
 					              while($row = mysqli_fetch_array($result)){
 					                echo "<tr>";
-					                echo "<td>".$row[P_Id]."</td>";
+					                echo "<td>".$row[Name]."</td>";
+					                echo "<td>".$row[Category]."</td>";
+					                echo "<td>".$row[Price]."</td>";
 					                echo "<td>".$row[Count]."</td>";
-					                // echo "<td>".."</td>";
-					                // echo "<td>".."</td>";
-					                // echo "<td>".."</td>";
-					                echo "<td><a class='btn btn-info' id='edit' href='edititem.php?id=".$row[P_Id]."'>Edit</a></td>";
-					                echo "<td><a class='btn btn-info' id='edit' href='deleteitem.php?id=".$row[P_Id]."'>Delete</a></td>";
+					                echo "<td><center><a class='btn btn-info' id='edit' href='removecartitem.php?id=".$row[P_Id]."'>Remove</a></center></td>";
 					                echo "</tr>";
+					                $finalprice += $row[Price]*$row[Count];
 					              }
 					            ?>
 						    </tbody>
@@ -122,7 +121,9 @@
 				</div>
 
 				<?php 
-					echo "<h4 style='float:right'>Final Price:".$finalprice."</h4>"; 
+					echo "<h4 style='float:right'>Final Price:".$finalprice."</h4>";
+					session_start();
+					$_SESSION['finalprice'] = $finalprice;
 				?>
 
 				<div class="col-md-12"  style="padding-bottom:2em;">
