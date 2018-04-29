@@ -76,7 +76,7 @@
 
       <div class="row row-offcanvas row-offcanvas-right">
 
-        <div class="col-xs-12 col-sm-9">
+        <div class="col-xs-12 col-sm-8">
           <!-- <p class="pull-right visible-xs">
             <button type="button" class="btn btn-primary btn-xs" data-toggle="offcanvas">Toggle nav</button>
           </p> -->
@@ -129,7 +129,7 @@
 
 
         </div><!--/.sidebar-offcanvas-->
-                <div class="col-xs-6 col-sm-3 sidebar-offcanvas" id="sidebar">
+                <div class="col-xs-6 col-sm-4 sidebar-offcanvas" id="sidebar">
           <div class="list-group">
             <p class="lead">Category</p>
             <a href="#" class="list-group-item active">PIZZAS</a>
