@@ -77,13 +77,15 @@
       <div class="row row-offcanvas row-offcanvas-right">
 
         <div class="col-xs-12 col-sm-9">
-          <p class="pull-right visible-xs">
+          <!-- <p class="pull-right visible-xs">
             <button type="button" class="btn btn-primary btn-xs" data-toggle="offcanvas">Toggle nav</button>
-          </p>
+          </p> -->
+          <div class="row">
           <div class="jumbotron" style="background: #eb5814;">
             <h1>Pizza!</h1>
             <p>ONLINE ORDERING NOW AVAILABLE.</p>
           </div>
+        </div>
 
           <div class="row">
             <!-- 320*150 -->
@@ -92,9 +94,13 @@
               $con = mysqli_connect("localhost","root","root" , "OnlinePizzaOrder");
               $sql="SELECT * FROM Products";
               $result = mysqli_query($con,$sql);
+              $item=0;
               while($row = mysqli_fetch_array($result)){
+                if($item == "0"){
+                  echo "<div class='row'>";
+                }
                 echo "<div style='float:left;' class='col-sm-4 col-lg-4 col-md-4'>";
-                echo "<div class='thumbnail' style='height: 340px;display: table;width: 100%;'>";
+                echo "<div class='thumbnail' style='height: 340px;display: table;'>";
                 $id = $row['P_Id'];
                 $name = $row['Name'];
                 $pictures = $row['Image'];
@@ -103,12 +109,17 @@
                 $description = $row['Description'];
                 echo "<center><p><img style='max-height:270px;max-width:200px;' src='uploads/$pictures'></p></center>";
                 echo "<div class='caption'>";
-                echo "<center><p class='name'><strong>" . $name . "</strong></p></center>";
-                echo "<center><p class='description'>" . $description . "</p></center>";
+                echo "<center><p class='name' style='overflow:hidden;max-width:200px;'><strong>" . $name . "</strong></p></center>";
+                echo "<center><p class='description' style='overflow:hidden;max-height:270px;max-width:200px;'>" . $description . "</p></center>";
                 echo "<center><p class='price'>$ " . $price . "</p></center>";
                 echo "<center><p class='stock'>Stock: " . $stock . "</p></center>";
                 echo "<center><p><a class='btn btn-default' href='addtocart.php?id={$id}' role='button'>Add to cart</a></p></center>";
                 echo "</div></div></div>";
+                $item += 1;
+                if($item == "3"){
+                  echo "</div>";
+                  $item = 0;
+                }
               }
             ?>
 
@@ -116,7 +127,9 @@
 
         </div><!--/.col-xs-12.col-sm-9-->
 
-        <div class="col-xs-6 col-sm-3 sidebar-offcanvas" id="sidebar">
+
+        </div><!--/.sidebar-offcanvas-->
+                <div class="col-xs-6 col-sm-3 sidebar-offcanvas" id="sidebar">
           <div class="list-group">
             <p class="lead">Category</p>
             <a href="#" class="list-group-item active">PIZZAS</a>
@@ -131,16 +144,17 @@
             <a href="#" class="list-group-item">$10-15</a>
             <a href="#" class="list-group-item">> $15</a>
           </div>
-        </div><!--/.sidebar-offcanvas-->
       </div><!--/row-->
 
       <hr>
 
-      <footer>
-        <p>&copy; 2018 Ruolan Zeng Web Final Projects</p>
-      </footer>
+      
 
     </div><!--/.container-->
+
+    <footer>
+        <p>&copy; 2018 Ruolan Zeng Web Final Projects</p>
+      </footer>
 
 
     <!-- Bootstrap core JavaScript
