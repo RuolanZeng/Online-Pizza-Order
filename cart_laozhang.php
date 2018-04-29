@@ -90,32 +90,47 @@
 						<table class="table table-bordered table-striped" id="mytable">
 						    <thead>
 						      <tr>
-								<td>P_Id</td>
+								<td>Name</td>
+								<td>Category</td>
 								<td>Count</td>
-								<td></td>
-								<td></td>
+								<td>Price</td>
 								<td></td>
 							</tr>
 						    </thead>
 						    <tbody>
 						      <?php
-					              $con = mysqli_connect("localhost","root","root" , "OnlinePizzaOrder");
-					              session_start();
-					              $email = $_SESSION['email'];
-					              $sql="SELECT * FROM Cart WHERE Email = '$email'";
-					              $result = mysqli_query($con,$sql);
-					              while($row = mysqli_fetch_array($result)){
-					                echo "<tr>";
-					                echo "<td>".$row[P_Id]."</td>";
-					                echo "<td>".$row[Count]."</td>";
-					                // echo "<td>".."</td>";
-					                // echo "<td>".."</td>";
-					                // echo "<td>".."</td>";
-					                echo "<td><a class='btn btn-info' id='edit' href='edititem.php?id=".$row[P_Id]."'>Edit</a></td>";
-					                echo "<td><a class='btn btn-info' id='edit' href='deleteitem.php?id=".$row[P_Id]."'>Delete</a></td>";
-					                echo "</tr>";
-					              }
-					            ?>
+
+								session_start();
+
+								$arr=array();
+
+								if(!empty($_SESSION["gwc"]))
+								{
+									$arr=$_SESSION["gwc"];
+								}
+
+								$con = mysqli_connect("localhost","root","root" , "OnlinePizzaOrder");
+
+								foreach($arr as $v)
+								{
+									global $con;
+									$sql="SELECT * FROM Products where P_Id='{$v[0]}'";
+									$result = mysqli_query($con,$sql);
+									while($row = mysqli_fetch_array($result)){
+										echo"<tr>
+										<td>{$row['Name']}</td>
+										<td>{$row['Category']}</td>
+										<td><input value='{$v[1]}' onblur='resetValue()'></td>
+										<td>{$row['Price']}</td>
+										<td><center><a class='btn btn-info' href='removecartitem.php?id={$v[0]}'>Remove</a></center></td>
+										</tr>";
+
+										$price = floatval($row['Price']);
+										$count = floatval($v[1]);
+										$finalprice += $price*$count;
+									}
+								}
+							?>
 						    </tbody>
 						</table>
 					</div>

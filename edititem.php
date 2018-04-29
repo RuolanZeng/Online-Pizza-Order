@@ -75,37 +75,72 @@
 
     <div class="container">
 
-     <form class="form-signin" method="POST" action="add.php">
-        <h2 class="form-signin-heading">Eidt</h2>
+      <?php 
+          $id=$_GET['id'];
+          $con = mysqli_connect("localhost","root","root" , "OnlinePizzaOrder");
+          $sql="SELECT * FROM Products WHERE P_Id = $id";
+          $result = mysqli_query($con,$sql);
+          while($row = mysqli_fetch_array($result)){
+      ?>
 
+     <form class="form-signin" method="POST" <?php echo "action='edititem.php?id=$id'";  ?>>
+        <h2 class="form-signin-heading">Eidt</h2>
         <p>Name: </p>
         <label for="inputEmail" class="sr-only">Email address</label>
-        <input type="text" name="name" id="inputname" class="form-control" placeholder="Name" required autofocus>
+        <input type="text" name="dishname" id="inputname" class="form-control" <?php echo "value='".$row[Name]."'"; ?> required autofocus>
         <p></p>
 
         <p>Category: </p>
-        <label for="inputUsername" class="sr-only">Category</label>
-        <input type="text" name="category" id="inputCategory" class="form-control" placeholder="Category" required>
+        <label for="inputCategory" class="sr-only">Category</label>
+        <input type="text" name="category" id="inputCategory" class="form-control" <?php echo "value='".$row[Category]."'"; ?> required>
+        <p></p>
+
+        <p>Price: </p>
+        <label for="inputPrice" class="sr-only">Price</label>
+        <input type="text" name="price" id="inputPrice" class="form-control" <?php echo "value='".$row[Price]."'"; ?> required>
         <p></p>
 
         <p>Description: </p>
         <label for="inputPrice" class="sr-only">Description</label>
-        <input type="text" name="description" id="inputDescription" class="form-control" placeholder="Description" required>
+        <input type="text" name="description" id="inputDescription" class="form-control" <?php echo "value='".$row[Description]."'"; ?> required>
         <p></p>
 
         <p>Stock: </p>
         <label for="inputStock" class="sr-only">Stock</label>
-        <input type="text" name="stock" id="inputStock" class="form-control" placeholder="Stock" required>
+        <input type="text" name="stock" id="inputStock" class="form-control" <?php echo "value='".$row[Stock]."'"; ?> required>
         <p></p>
 
         <p>Image: </p>
         <label for="inputImage" class="sr-only">Image</label>
-        <input type="text" id="inputImage" name="image" class="form-control" placeholder="Image" required>
+        <input type="text" id="inputImage" name="image" class="form-control" <?php echo "value='".$row[Image]."'"; ?> required>
         <p></p>
 
-        <button class="btn btn-lg btn-primary btn-block" type="submit" name="submit">Add</button>
+        <button class="btn btn-lg btn-primary btn-block" type="submit" name="submit">Edit</button>
+
+        <?php 
+          
+          }
+            $id=$_GET['id'];
+            $dishname = $_POST['dishname'];
+            $category = $_POST['category'];
+            $price = $_POST['price'];
+            $description = $_POST['description'];
+            $stock = $_POST['stock'];
+            $image = $_POST['image'];
+
+            if (isset($_POST['submit'])) {
+                if(!is_null($dishname)&&!is_null($category)&&!is_null($description)&&!is_null($stock)){
+                    $sql2="UPDATE Products SET Name = '$dishname', Category = '$category', Price = '$price', Description = '$description', Stock = '$stock', Image = '$image' WHERE P_Id = $id ";
+
+                    mysqli_query($con,$sql2);
+
+                    header("Location: editmenu.php");
+                    exit();
+                }
+            }
+        ?>
       </form>
-      </div><!--/row-->
+    </div><!--/row-->
 
 
     </div><!--/.container-->

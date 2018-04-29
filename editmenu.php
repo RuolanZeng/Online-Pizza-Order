@@ -107,8 +107,8 @@
 					                echo "<td>".$row[Description]."</td>";
 					                echo "<td>".$row[Image]."</td>";
 					                echo "<td>".$row[Stock]."</td>";
-					                echo "<td><a class='btn btn-info' id='edit' href='edititem.php'>Edit</a></td>";
-					                echo "<td><a class='btn btn-info' id='edit' href='deleteitem.php'>Delete</a></td>";
+					                echo "<td><a class='btn btn-info' id='edit' href='edititem.php?id=".$row[P_Id]."'>Edit</a></td>";
+					                echo "<td><a class='btn btn-info' id='edit' href='deleteitem.php?id=".$row[P_Id]."'>Delete</a></td>";
 					                echo "</tr>";
 					              }
 					            ?>

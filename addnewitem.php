@@ -75,7 +75,7 @@
 
     <div class="container">
 
-     <form class="form-signin" method="POST" action="add.php">
+     <form class="form-signin" method="POST" action="addnewitem.php">
         <h2 class="form-signin-heading">Please Add New Dish</h2>
 
         <p>Name: </p>
@@ -90,7 +90,7 @@
 
         <p>Price: </p>
         <label for="inputPrice" class="sr-only">Price</label>
-        <input type="text" name="category" id="inputCategory" class="form-control" placeholder="Price" required>
+        <input type="text" name="price" id="inputPrice" class="form-control" placeholder="Price" required>
         <p></p>
 
         <p>Description: </p>
@@ -121,7 +121,7 @@
             if (isset($_POST['submit'])) {
                 if(!is_null($dishname)&&!is_null($category)&&!is_null($description)&&!is_null($stock)){
                     $con = mysqli_connect("localhost","root","root" , "OnlinePizzaOrder");
-                    $sql="INSERT INTO `Products` (`Name`, `Category`, `Price`, `Description`, `Stock`, `Image`) VALUES ('$dishname', '$category','$price', '$description', '$stock', '$image');";
+                    $sql="INSERT INTO `Products` (`Name`, `Category`, `Price`, `Description`, `Stock`, `Image`) VALUES ('$dishname','$category','$price','$description','$stock','$image');";
 
                     mysqli_query($con,$sql);
 
@@ -129,8 +129,7 @@
                     // echo "right";
                     // echo "$_COOKIE[$usercookie]";
 
-                    header("Location: index.php");
-                    echo "right";
+                    header("Location: editmenu.php");
                     exit();
                 }
             }
