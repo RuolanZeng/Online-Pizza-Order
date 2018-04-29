@@ -1,3 +1,33 @@
+<?php
+          $email = $_POST['email'];
+          $pw = $_POST['password'];
+          $con = mysqli_connect("localhost","root","root" , "OnlinePizzaOrder");
+          $sql="SELECT * FROM `Users` WHERE Email = '$email'";
+          $result = mysqli_query($con,$sql);
+          $row = mysqli_fetch_array($result);
+          // echo $username;
+          // echo mysqli_num_rows($result);
+
+          if (isset($_POST['submit'])) {
+            if(password_verify($pw, $row['Password'])){
+
+              //setcookie("usercookie", $email, time()+60*60*7);
+
+              session_start();
+              $_SESSION['email'] = $email;
+              $_SESSION['username'] = $row[Username];
+
+              if($row[Authority] === '1'){
+                $_SESSION['admin'] = 1;
+              }
+
+            header('Location: index.php');
+              exit();
+            }else{
+              echo "<p id='Hint' class = 'alert alert-danger'> Email or Password is Invalid</p>";
+            }
+          }
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -23,36 +53,7 @@
       <form class="form-signin" method="post" action="signin.php">
         <h2 class="form-signin-heading">Please sign in</h2>
 
-        <?php
-          $email = $_POST['email'];
-          $pw = $_POST['password'];
-          $con = mysqli_connect("localhost","root","root" , "OnlinePizzaOrder");
-          $sql="SELECT * FROM `Users` WHERE Email = '$email'";
-          $result = mysqli_query($con,$sql);
-          $row = mysqli_fetch_array($result);
-          // echo $username;
-          // echo mysqli_num_rows($result);
 
-          if (isset($_POST['submit'])) {
-            if(password_verify($pw, $row['Password'])){
-
-              //setcookie("usercookie", $email, time()+60*60*7);
-
-              session_start();
-              $_SESSION['email'] = $email;
-              $_SESSION['username'] = $row[Username];
-
-              if($row[Authority] === '1'){
-                $_SESSION['admin'] = 1;
-              }
-
-              header("Location: index.php");
-              exit();
-            }else{
-              echo "<p id='Hint' class = 'alert alert-danger'> Email or Password is Invalid</p>";
-            }
-          }
-        ?>
 
         <label for="inputEmail" class="sr-only">Email address</label>
         <input type="email" name="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
@@ -62,6 +63,8 @@
 
         <p> New User? <a href="signup.php"> Sign Up Now! </a></p>
         <button class="btn btn-lg btn-primary btn-block" type="submit" name="submit">Sign in</button>
+
+          
       </form>
 
     </div> <!-- /container -->
@@ -69,4 +72,6 @@
 
   </body>
 </html>
+
+
 

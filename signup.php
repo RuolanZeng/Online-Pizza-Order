@@ -1,3 +1,28 @@
+<?php
+            $email = $_POST['email'];
+            $username = $_POST['username'];
+            $pw = $_POST['password'];
+            $name = $_POST['name'];
+            $phone = $_POST['phone'];
+            $address = $_POST['address'];
+            $hashedPassword = password_hash($pw, PASSWORD_DEFAULT);
+
+            if (isset($_POST['submit'])) {
+                if(!is_null($email)&&!is_null($username)&&!is_null($pw)){
+                    $con = mysqli_connect("localhost","root","root" , "OnlinePizzaOrder");
+                    $sql="INSERT INTO `Users` (`Email`, `Username`, `Password`, `Authority`, `Name`, `Phone`,`Address`) VALUES ('$email', '$username', '$hashedPassword', 0, '$name', '$phone', '$address');";
+
+                    mysqli_query($con,$sql);
+
+                    // setcookie("usercookie", $email, time()+6000);
+                    // echo "right";
+                    // echo "$_COOKIE[$usercookie]";
+
+                    header("Location: index.php");
+                    exit();
+                }
+            }
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -131,32 +156,7 @@
 
         <button class="btn btn-lg btn-primary btn-block" type="submit" name="submit" >Sign up</button>
 
-        <?php
-            $email = $_POST['email'];
-            $username = $_POST['username'];
-            $pw = $_POST['password'];
-            $name = $_POST['name'];
-            $phone = $_POST['phone'];
-            $address = $_POST['address'];
-            $hashedPassword = password_hash($pw, PASSWORD_DEFAULT);
-
-            if (isset($_POST['submit'])) {
-                if(!is_null($email)&&!is_null($username)&&!is_null($pw)){
-                    $con = mysqli_connect("localhost","root","root" , "OnlinePizzaOrder");
-                    $sql="INSERT INTO `Users` (`Email`, `Username`, `Password`, `Authority`, `Name`, `Phone`,`Address`) VALUES ('$email', '$username', '$hashedPassword', 0, '$name', '$phone', '$address');";
-
-                    mysqli_query($con,$sql);
-
-                    // setcookie("usercookie", $email, time()+6000);
-                    // echo "right";
-                    // echo "$_COOKIE[$usercookie]";
-
-                    header("Location: index.php");
-                    echo "right";
-                    exit();
-                }
-            }
-        ?>
+        
       </form>
 
     </div> <!-- /container -->
