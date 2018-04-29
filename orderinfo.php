@@ -92,8 +92,8 @@
 						      <tr>
 								<td>Order Num</td>
 								<td>Date</td>
-								<td>Price</td>
-								<td></td>
+								<td>Total Price</td>
+								<td>Detail</td>
 							</tr>
 						    </thead>
 						    <tbody>
@@ -110,10 +110,27 @@
 								      	echo "<td>".$i."</td>";
 								      	echo "<td>".$row[O_date]."</td>";
 								      	echo "<td>".$row[O_price]."</td>";
-								      	// echo "<td>".."</td>";
-								      	echo "<td><center><a class='btn btn-info' id='edit' href='orderdetail.php?id=".$row[O_date]."'>Order Detail</a></center></td>";
-								      echo "</tr>";
+								      	echo "<td>";
+								      	$date = $row[O_date];
+								      	$price = $row[O_price];
+								      	$sql2 = "SELECT P_Id,P_count FROM Orders WHERE Email = '$email' AND O_date = '$date' AND O_price = '$price'";
+								      	$result2 = mysqli_query($con,$sql2);
+								      	while($row2 = mysqli_fetch_array($result2)){
+								      		$P_id = $row2['P_Id'];
+								      		$count = $row2['P_count'];
+								      		$sql3 = "SELECT * FROM Products WHERE P_Id = '$P_id'";
+								      		$result3 = mysqli_query($con,$sql3);
+								      		while($row3 = mysqli_fetch_array($result3)){
+								      			echo "<p><img style='max-height:270px;max-width:200px;' src='uploads/".$row3['Image']."'></p>";
+								      			echo "<p> Product Name:".$row3['Name']."</p>";
+								      			echo "<p> Product Price:".$row3['Price']."</p>";
+								      			echo "<p> Product Count:".$count."</p>";
+								      		}
+								      	}
 								  }
+								  	
+								    echo "</td>";
+								    echo "</tr>";
 					            ?>
 						    </tbody>
 						</table>

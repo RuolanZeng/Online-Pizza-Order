@@ -95,7 +95,7 @@
 
         <p>Description: </p>
         <label for="inputDescription" class="sr-only">Description</label>
-        <input type="text" name="description" id="inputDescription" class="form-control" placeholder="Description" required>
+        <textarea type="text" name="description" id="inputDescription" class="form-control" placeholder="Description" required></textarea>
         <p></p>
 
         <p>Stock: </p>
