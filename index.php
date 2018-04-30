@@ -106,7 +106,10 @@
             <!-- add -->
             <?php
               $con = mysqli_connect("localhost","root","root" , "OnlinePizzaOrder");
-              $sql="SELECT * FROM Products";
+              $limit = 6;  
+              if (isset($_GET["page"])) { $page  = $_GET["page"]; } else { $page=1; };  
+              $start_from = ($page-1) * $limit;
+              $sql="SELECT * FROM Products LIMIT $start_from, $limit";
               $result = mysqli_query($con,$sql);
               while($row = mysqli_fetch_array($result)){
                 echo "<div class='col-sm-4 col-lg-4 col-md-4'>";
@@ -135,19 +138,41 @@
         <center><nav aria-label="Page navigation example">
               <ul class="pagination">
                 <li class="page-item">
-                  <a class="page-link" href="#" aria-label="Previous">
+                  <?php
+                    $page = $_GET["page"];
+                    // echo $page-1;
+                    if ($page>=2) {
+                      $page = $page - 1;
+                      echo "<a class='page-link' href='index.php?page=".$page."' aria-label='Previous'>";
+                      echo "<span aria-hidden='true'>&laquo;</span>";
+                      echo "<span class='sr-only'>Previous</span>";
+                      echo "</a> ";
+                    }
+                  ?>
+                  <!-- <a class="page-link" href="#" aria-label="Previous">
                     <span aria-hidden="true">&laquo;</span>
                     <span class="sr-only">Previous</span>
-                  </a>
+                  </a> -->
                 </li>
-                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li class="page-item"><a class="page-link" href="index.php?page=1">1</a></li>
+                <li class="page-item"><a class="page-link" href="index.php?page=2">2</a></li>
+                <li class="page-item"><a class="page-link" href="index.php?page=3">3</a></li>
                 <li class="page-item">
-                  <a class="page-link" href="#" aria-label="Next">
+                  <?php
+                    $page = $_GET["page"];
+                    // echo $page-1;
+                    if ($page<=3) {
+                      $page = $page + 1;
+                      echo "<a class='page-link' href='index.php?page=".$page."' aria-label='Next'>";
+                      echo "<span aria-hidden='true'>&raquo;</span>";
+                      echo "<span class='sr-only'>Next</span>";
+                      echo "</a> ";
+                    }
+                  ?>
+                  <!-- <a class="page-link" href="#" aria-label="Next">
                     <span aria-hidden="true">&raquo;</span>
                     <span class="sr-only">Next</span>
-                  </a>
+                  </a> -->
                 </li>
               </ul>
             </nav>
@@ -156,7 +181,7 @@
         <div class="col-xs-6 col-sm-3 sidebar-offcanvas" id="sidebar">
           <div class="list-group">
             <p class="lead">Category</p>
-            <a href="#" class="list-group-item active">PIZZAS</a>
+            <a href="#" class="list-group-item">PIZZAS</a>
             <a href="#" class="list-group-item">COMBO</a>
             <a href="#" class="list-group-item">SIDES</a>
             <a href="#" class="list-group-item">DRINKS</a>
