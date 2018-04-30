@@ -109,7 +109,18 @@
               $limit = 6;  
               if (isset($_GET["page"])) { $page  = $_GET["page"]; } else { $page=1; };  
               $start_from = ($page-1) * $limit;
-              $sql="SELECT * FROM Products LIMIT $start_from, $limit";
+
+              if (isset($_GET["category"])) {
+                $category = $_GET["category"];
+                $sql="SELECT * FROM Products WHERE Category = '$category' LIMIT $start_from, $limit";
+                // echo $sql;
+              }else if(isset($_POST["submit"])){
+                $search = $_POST["search"];
+                $sql="SELECT * FROM Products WHERE Name like '%$search%' LIMIT $start_from, $limit";
+              }else{
+                $sql="SELECT * FROM Products LIMIT $start_from, $limit";
+              }
+
               $result = mysqli_query($con,$sql);
               while($row = mysqli_fetch_array($result)){
                 echo "<div class='col-sm-4 col-lg-4 col-md-4'>";
@@ -154,14 +165,14 @@
                     <span class="sr-only">Previous</span>
                   </a> -->
                 </li>
-                <li class="page-item"><a class="page-link" href="index.php?page=1">1</a></li>
+                <!-- <li class="page-item"><a class="page-link" href="index.php?page=1">1</a></li>
                 <li class="page-item"><a class="page-link" href="index.php?page=2">2</a></li>
-                <li class="page-item"><a class="page-link" href="index.php?page=3">3</a></li>
+                <li class="page-item"><a class="page-link" href="index.php?page=3">3</a></li> -->
                 <li class="page-item">
                   <?php
                     $page = $_GET["page"];
                     // echo $page-1;
-                    if ($page<=3) {
+                    if ($page<3) {
                       $page = $page + 1;
                       echo "<a class='page-link' href='index.php?page=".$page."' aria-label='Next'>";
                       echo "<span aria-hidden='true'>&raquo;</span>";
@@ -181,17 +192,21 @@
         <div class="col-xs-6 col-sm-3 sidebar-offcanvas" id="sidebar">
           <div class="list-group">
             <p class="lead">Category</p>
-            <a href="#" class="list-group-item">PIZZAS</a>
-            <a href="#" class="list-group-item">COMBO</a>
-            <a href="#" class="list-group-item">SIDES</a>
-            <a href="#" class="list-group-item">DRINKS</a>
+            <a href="index.php?category=PIZZAS" class="list-group-item">PIZZAS</a>
+            <a href="index.php?category=COMBO" class="list-group-item">COMBO</a>
+            <a href="index.php?category=SIDES" class="list-group-item">SIDES</a>
+            <a href="index.php?category=DRINKS" class="list-group-item">DRINKS</a>
           </div>
           <div class="list-group">
-            <p class="lead">Price</p>
-            <a href="#" class="list-group-item">< $5</a>
-            <a href="#" class="list-group-item">$5-10</a>
-            <a href="#" class="list-group-item">$10-15</a>
-            <a href="#" class="list-group-item">> $15</a>
+            <p class="lead">Search</p>
+            <form action="index.php" method="POST" class="navbar-form" role="search">
+                  <div class="input-group">
+                      <input name = "search" type="text" class="form-control" placeholder="Search movies" name="q">
+                      <div class="input-group-btn">
+                          <button class="btn btn-default searchheight" type="submit" name="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
+                      </div>
+                  </div>
+              </form>
           </div>
         </div><!--/.sidebar-offcanvas-->
       </div><!--/row-->
