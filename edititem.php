@@ -150,10 +150,10 @@
                     $sql2="UPDATE Products SET Name = '$dishname', Category = '$category', Price = '$price', Description = '$description', Stock = '$stock', Image = '$image' WHERE P_Id = $id ";
 
                     mysqli_query($con,$sql2);
-
-                    header("Location: editmenu.php");
-                    exit();
                 }
+                
+                header("Location: editmenu.php");
+                exit();
             }
         ?>
       </form>

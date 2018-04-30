@@ -192,6 +192,7 @@
         <div class="col-xs-6 col-sm-3 sidebar-offcanvas" id="sidebar">
           <div class="list-group">
             <p class="lead">Category</p>
+            <a href="index.php" class="list-group-item">ALL</a>
             <a href="index.php?category=PIZZAS" class="list-group-item">PIZZAS</a>
             <a href="index.php?category=COMBO" class="list-group-item">COMBO</a>
             <a href="index.php?category=SIDES" class="list-group-item">SIDES</a>

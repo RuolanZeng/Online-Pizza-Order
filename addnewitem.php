@@ -1,3 +1,45 @@
+<?php
+            $dishname = $_POST['dishname'];
+            $category = $_POST['category'];
+            $price = $_POST['price'];
+            $description = $_POST['description'];
+            $stock = $_POST['stock'];
+
+            if (isset($_POST['submit'])) {
+                if(!is_null($dishname)&&!is_null($category)&&!is_null($description)&&!is_null($stock)){
+
+                    $image = $_FILES['file'];
+                    $imageName = $_FILES['file']['name'];
+                    $imageTmp = $_FILES['file']['tmp_name'];
+                    $imageSize = $_FILES['file']['size'];
+                    $imageError = $_FILES['file']['error'];
+                    $imageType = $_FILES['file']['type'];
+                    
+                    // echo $imageName;
+                    // echo $imageTmp;
+                    // echo $imageSize;
+                    // echo $imageError;
+                    // echo $imageType;
+
+                    if ($imageError === 0) {
+                      $fileDestination = 'uploads/'.$imageName;
+                      move_uploaded_file($imageTmp, $fileDestination);
+                    }
+
+                    $con = mysqli_connect("localhost","root","root" , "OnlinePizzaOrder");
+                    $sql="INSERT INTO `Products` (`Name`, `Category`, `Price`, `Description`, `Stock`, `Image`) VALUES ('$dishname','$category','$price','$description','$stock','$imageName');";
+
+                    mysqli_query($con,$sql);
+
+                    // setcookie("usercookie", $email, time()+6000);
+                    // echo "right";
+                    // echo "$_COOKIE[$usercookie]";
+
+                    header("Location: editmenu.php");
+                    exit();
+                }
+            }
+        ?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -127,48 +169,7 @@
 
         <button class="btn btn-lg btn-primary btn-block" type="submit" name="submit">Add</button>
 
-        <?php
-            $dishname = $_POST['dishname'];
-            $category = $_POST['category'];
-            $price = $_POST['price'];
-            $description = $_POST['description'];
-            $stock = $_POST['stock'];
-
-            if (isset($_POST['submit'])) {
-                if(!is_null($dishname)&&!is_null($category)&&!is_null($description)&&!is_null($stock)){
-
-                    $image = $_FILES['file'];
-                    $imageName = $_FILES['file']['name'];
-                    $imageTmp = $_FILES['file']['tmp_name'];
-                    $imageSize = $_FILES['file']['size'];
-                    $imageError = $_FILES['file']['error'];
-                    $imageType = $_FILES['file']['type'];
-                    
-                    // echo $imageName;
-                    // echo $imageTmp;
-                    // echo $imageSize;
-                    // echo $imageError;
-                    // echo $imageType;
-
-                    if ($imageError === 0) {
-                      $fileDestination = 'uploads/'.$imageName;
-                      move_uploaded_file($imageTmp, $fileDestination);
-                    }
-
-                    $con = mysqli_connect("localhost","root","root" , "OnlinePizzaOrder");
-                    $sql="INSERT INTO `Products` (`Name`, `Category`, `Price`, `Description`, `Stock`, `Image`) VALUES ('$dishname','$category','$price','$description','$stock','$imageName');";
-
-                    mysqli_query($con,$sql);
-
-                    // setcookie("usercookie", $email, time()+6000);
-                    // echo "right";
-                    // echo "$_COOKIE[$usercookie]";
-
-                    header("Location: editmenu.php");
-                    exit();
-                }
-            }
-        ?>
+        
 
       </form>
       </div><!--/row-->
